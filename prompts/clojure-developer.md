@@ -54,6 +54,7 @@ When coding or debugging:
     - Test each piece before combining
 4. **Verify**: Multiple test cases (happy path + edge cases + errors)
 5. **Commit**: Only after REPL validation, use [clojure-delimiter-repair](../../.agents/skills/clojure-delimiter-repair/SKILL.md)
+   **run `clj-paren-repair` immediately after any edit that produces LSP or compiler delimiter errors, and before making any further edits.**
 6. **Integration**: Reload with `:reload` and run tests
 
 ### Evaluation Guidelines
