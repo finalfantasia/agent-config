@@ -159,4 +159,4 @@ clj-nrepl-eval --discover-ports
 - `clojure-mcp-light` README: https://github.com/bhauman/clojure-mcp-light/blob/main/README.md
 - Babashka README: https://github.com/babashka/babashka/blob/master/README.md
 - bbin README: https://github.com/babashka/bbin/blob/main/README.md
-- Clojure MCP README, for the sample `:nrepl` alias pattern: https://github.com/bhauman/clojure-mcp
+
