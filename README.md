@@ -160,7 +160,3 @@ clj-nrepl-eval --discover-ports
 - Babashka README: https://github.com/babashka/babashka/blob/master/README.md
 - bbin README: https://github.com/babashka/bbin/blob/main/README.md
 - Clojure MCP README, for the sample `:nrepl` alias pattern: https://github.com/bhauman/clojure-mcp
-
-## Notes
-
-The `bbin` Homebrew command above is a practical install path, but I was not able to directly fetch the upstream `bbin` README contents in this environment. The source link is included above so you can confirm the latest supported install method if you want the exact upstream wording.
