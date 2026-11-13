@@ -1,13 +1,15 @@
 # agent-config
 
-This repository is a small skill bundle for LLM coding agents, centered on the contents of [`skills/`](skills/). It packages reusable instructions for Clojure development and one meta-skill for creating and evaluating new skills.
+This repository is a small skill bundle for LLM coding agents, centered on the contents of [`skills/`](skills/). It includes reusable Clojure/ClojureScript development and test guidance, code review, and skill-authoring instructions.
 
 The current skills are:
 
-- `clojure-developer`: top-level workflow for REPL-driven Clojure development
-- `clojure-eval`: use `clj-nrepl-eval` to evaluate code against a running nREPL server
+- `clojure-development`: general Clojure and ClojureScript development
+- `clojure-evaluation`: use `clj-nrepl-eval` to evaluate code through a running nREPL server
 - `clojure-repl`: REPL exploration and debugging patterns
 - `clojure-delimiter-repair`: use `clj-paren-repair` to repair delimiter errors
+- `clojure-test-audit`: author and audit Clojure/ClojureScript tests
+- `pr-review`: review changesets
 - `skill-creator`: author, benchmark, and iterate on skills
 
 ## Usage
@@ -18,10 +20,12 @@ If your agent supports local skills, copy the skill directories you want into it
 
 ```bash
 mkdir -p "$SKILLS_DIR"
-cp -R skills/clojure-developer "$SKILLS_DIR"/
-cp -R skills/clojure-eval "$SKILLS_DIR"/
+cp -R skills/clojure-development "$SKILLS_DIR"/
+cp -R skills/clojure-evaluation "$SKILLS_DIR"/
 cp -R skills/clojure-repl "$SKILLS_DIR"/
 cp -R skills/clojure-delimiter-repair "$SKILLS_DIR"/
+cp -R skills/clojure-test-audit "$SKILLS_DIR"/
+cp -R skills/pr-review "$SKILLS_DIR"/
 cp -R skills/skill-creator "$SKILLS_DIR"/
 ```
 
@@ -29,17 +33,18 @@ If you only want the Clojure workflow, the practical minimum is:
 
 ```bash
 mkdir -p "$SKILLS_DIR"
-cp -R skills/clojure-developer "$SKILLS_DIR"/
-cp -R skills/clojure-eval "$SKILLS_DIR"/
+cp -R skills/clojure-development "$SKILLS_DIR"/
+cp -R skills/clojure-evaluation "$SKILLS_DIR"/
 cp -R skills/clojure-repl "$SKILLS_DIR"/
 cp -R skills/clojure-delimiter-repair "$SKILLS_DIR"/
+cp -R skills/clojure-test-audit "$SKILLS_DIR"/
 ```
 
 Once installed, the intended workflow is:
 
-1. Use `clojure-developer` for general Clojure tasks.
+1. Use `clojure-development` for general Clojure tasks and `clojure-test-audit` when adding or evaluating tests.
 2. Start or discover an nREPL server.
-3. Use `clojure-eval` first to verify assumptions in the REPL.
+3. Use `clojure-evaluation` to verify assumptions in a live REPL.
 4. Use `clojure-repl` for `doc`, `source`, edge cases, and debugging.
 5. If an edit introduces bad delimiters, run `clj-paren-repair` immediately.
 
@@ -51,18 +56,10 @@ These skills assume a few external tools are available on your `PATH`.
 
 `clojure-mcp-light` requires Babashka, and its README notes that `1.12.212+` is required when working with Codex and similar sandboxed tools.
 
-macOS/Linux via Homebrew:
+macOS via Homebrew:
 
 ```sh
 brew install borkdude/brew/babashka
-```
-
-macOS/Linux via installer script:
-
-```sh
-curl -sLO https://raw.githubusercontent.com/babashka/babashka/master/install
-chmod +x install
-./install
 ```
 
 Verify:
@@ -90,7 +87,23 @@ After installation, verify:
 bbin --version
 ```
 
-### 3. Install `clj-nrepl-eval`
+### 3. Install `fd`
+
+The Pi coding agent requires [`fd`](https://github.com/sharkdp/fd) to be available on your `PATH`.
+
+macOS via Homebrew:
+
+```bash
+brew install fd
+```
+
+Verify:
+
+```bash
+fd --version
+```
+
+### 4. Install `clj-nrepl-eval`
 
 This is the command used by [`skills/clojure-eval/SKILL.md`](skills/clojure-eval/SKILL.md).
 
@@ -104,7 +117,7 @@ Verify:
 clj-nrepl-eval --help
 ```
 
-### 4. Install `clj-paren-repair`
+### 5. Install `clj-paren-repair`
 
 This is the command used by [`skills/clojure-delimiter-repair/SKILL.md`](skills/clojure-delimiter-repair/SKILL.md).
 
@@ -118,7 +131,7 @@ Verify:
 clj-paren-repair --help
 ```
 
-### 5. Optional: install `parinfer-rust`
+### 6. Optional: install `parinfer-rust`
 
 `clj-paren-repair` can use `parinfer-rust` as its preferred repair backend when available.
 
@@ -126,9 +139,9 @@ clj-paren-repair --help
 cargo install --git https://github.com/eraserhd/parinfer-rust
 ```
 
-This step requires Rust/Cargo. If you skip it, `clj-paren-repair` can still fall back to its pure Clojure path.
+If you skip it, `clj-paren-repair` can still fall back to its pure Clojure path.
 
-### 6. Start an nREPL server in your project
+### 7. Start an nREPL server in your project
 
 The REPL-driven development skills assume you have a running nREPL server for the target project.
 
