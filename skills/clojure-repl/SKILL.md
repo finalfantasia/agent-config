@@ -5,7 +5,7 @@ description: Explore Clojure namespaces, APIs, errors, and live behavior at a RE
 
 # Clojure REPL Exploration
 
-Use this skill when an interactive probe can reduce uncertainty: tracing a runtime value, understanding an unfamiliar namespace, checking a library API, or isolating an exception. Connect and evaluate expressions with [clojure-eval](../clojure-eval/SKILL.md).
+Use this skill when an interactive probe can reduce uncertainty: tracing a runtime value, understanding an unfamiliar namespace, checking a library API, or isolating an exception.
 
 ## Investigation loop
 
@@ -30,6 +30,5 @@ For an exception, inspect `*e` and use `(pst)` when the stack trace is needed. K
 
 - Prefer source reading or a targeted test when no live runtime is needed.
 - Do not add dependencies or mutate production-like data merely to explore an API.
-- Use [clojure-delimiter-repair](../clojure-delimiter-repair/SKILL.md) only after an actual delimiter diagnostic.
 
 Read [references/exploration.md](references/exploration.md) for a compact catalog of `clojure.repl` tools and longer examples.

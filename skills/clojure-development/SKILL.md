@@ -1,6 +1,6 @@
 ---
 name: clojure-development
-description: Implement, debug, or refactor Clojure and ClojureScript code. Use for substantive Clojure changes; use a narrower REPL or delimiter skill when that is the whole task.
+description: Implement, debug, or refactor Clojure and ClojureScript code. Use for substantive Clojure changes; use the narrower REPL skill when that is the whole task.
 ---
 
 # Clojure Development
@@ -16,8 +16,6 @@ Work from the requested behavior and the relevant code, then choose the cheapest
 
 ## Choose a narrower skill when useful
 
-- Read [clojure-eval](../clojure-eval/SKILL.md) to connect to an nREPL, inspect live state, or evaluate a hypothesis.
 - Read [clojure-repl](../clojure-repl/SKILL.md) for interactive exploration techniques such as `doc`, `source`, and exception inspection.
-- Read [clojure-delimiter-repair](../clojure-delimiter-repair/SKILL.md) when a delimiter diagnostic appears.
 
 Keep functions small and data-oriented where that matches the surrounding code. Avoid silent fallbacks that change observable failure behavior unless the requested behavior calls for one.
