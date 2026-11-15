@@ -16,6 +16,7 @@ Work from the requested behavior and the relevant code, then choose the cheapest
 
 ## Choose a narrower skill when useful
 
+- Read [neorepl](../neorepl/SKILL.md) to connect to an nREPL, evaluate code, load edited files, run tests, or repair delimiters.
 - Read [clojure-repl](../clojure-repl/SKILL.md) for interactive exploration techniques such as `doc`, `source`, and exception inspection.
 
 Keep functions small and data-oriented where that matches the surrounding code. Avoid silent fallbacks that change observable failure behavior unless the requested behavior calls for one.

@@ -7,6 +7,7 @@ The current skills are:
 - `clojure-development`: general Clojure and ClojureScript development
 - `clojure-repl`: REPL exploration and debugging patterns
 - `clojure-test-audit`: author and audit Clojure/ClojureScript tests
+- `neorepl`: evaluate code, load files, run tests, inspect runtime behavior, and repair delimiters through the neorepl CLI
 - `pr-review`: review changesets
 - `skill-creator`: author, benchmark, and iterate on skills
 
@@ -21,6 +22,7 @@ mkdir -p "$SKILLS_DIR"
 cp -R skills/clojure-development "$SKILLS_DIR"/
 cp -R skills/clojure-repl "$SKILLS_DIR"/
 cp -R skills/clojure-test-audit "$SKILLS_DIR"/
+cp -R skills/neorepl "$SKILLS_DIR"/
 cp -R skills/pr-review "$SKILLS_DIR"/
 cp -R skills/skill-creator "$SKILLS_DIR"/
 ```
@@ -32,30 +34,34 @@ mkdir -p "$SKILLS_DIR"
 cp -R skills/clojure-development "$SKILLS_DIR"/
 cp -R skills/clojure-repl "$SKILLS_DIR"/
 cp -R skills/clojure-test-audit "$SKILLS_DIR"/
+cp -R skills/neorepl "$SKILLS_DIR"/
 ```
 
-Once installed, the intended workflow is:
+## Tool installation
 
-1. Use `clojure-development` for general Clojure tasks and `clojure-test-audit` when adding or evaluating tests.
-2. Start or connect to an nREPL server.
-3. Use `clojure-repl` for `doc`, `source`, edge cases, and debugging.
+### Configure a global `neorepl` alias
 
-## Tool Installation
+Use the Clojure CLI with a global alias. Add `:neorepl` to the `:aliases` map in `~/.clojure/deps.edn`:
 
-### Install `fd`
-
-The Pi coding agent requires [`fd`](https://github.com/sharkdp/fd) to be available on your `PATH`.
-
-macOS via Homebrew:
-
-```bash
-brew install fd
+```clojure
+{:aliases
+ {:neorepl
+  {:replace-deps {io.github.nrepl/neorepl {:git/tag "v0.5.1"
+                                           :git/sha "155a066"}}
+   :replace-paths []
+   :main-opts ["--main" "neorepl.main"]
+   ;; https://jline.org/docs/troubleshooting#jdk-24-restricted-method-warning
+   :jvm-opts ["--enable-native-access" "ALL-UNNAMED"]}}}
 ```
+
+Merge this alias into your existing configuration rather than replacing the file. The pinned Git SHA makes the client version reproducible.
 
 Verify:
 
 ```bash
-fd --version
+clojure -M:neorepl --help
+clojure -M:neorepl ports
+clojure -M:neorepl eval -s agent '(+ 1 2)'
 ```
 
 ### Start an nREPL server in your project
@@ -80,3 +86,6 @@ clojure -M:nrepl
 ## Sources
 
 - Local skill docs in [`skills/`](skills/)
+- [Upstream neorepl skill](https://github.com/nrepl/neorepl/tree/main/skills/neorepl), vendored into [`skills/neorepl/`](skills/neorepl/) with commands adapted to use the global Clojure CLI alias. Copyright © 2026 Bozhidar Batsov and contributors; distributed under the [Eclipse Public License 1.0](skills/neorepl/LICENSE).
+- [neorepl installation and usage](https://github.com/nrepl/neorepl#usage)
+

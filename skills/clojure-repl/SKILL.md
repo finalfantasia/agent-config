@@ -5,7 +5,7 @@ description: Explore Clojure namespaces, APIs, errors, and live behavior at a RE
 
 # Clojure REPL Exploration
 
-Use this skill when an interactive probe can reduce uncertainty: tracing a runtime value, understanding an unfamiliar namespace, checking a library API, or isolating an exception.
+Use this skill when an interactive probe can reduce uncertainty: tracing a runtime value, understanding an unfamiliar namespace, checking a library API, or isolating an exception. Connect and evaluate expressions with [neorepl](../neorepl/SKILL.md).
 
 ## Investigation loop
 
